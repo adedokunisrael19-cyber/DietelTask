@@ -2,8 +2,12 @@ public class HugeInteger {
     private int [] numbers = new int [40];
 
 
-    public HugeInteger(int [] numbers) {
-        this.numbers = numbers;
+    public HugeInteger() {
+
+    }
+
+    public HugeInteger(String input) {
+        parse(input);
     }
 
 
@@ -36,33 +40,35 @@ public class HugeInteger {
         return string.toString();
     }
 
-    public void add(HugeInteger integer) {
+    public HugeInteger add(HugeInteger integer) {
         int leftover = 0;
-        for (int i = 0; i < numbers.length-1; i++) {
-            int sum = numbers[i]+ integer.numbers[i+1];
-            numbers[i] = sum % 10;
+
+        HugeInteger result = new HugeInteger();
+        for (int i = numbers.length-1; i >=0; i--) {
+            int sum = numbers[i]+ integer.numbers[i] + leftover;
+            result.numbers[i] = sum % 10;
             leftover  = sum/ 10;
         }
         if(leftover != 0){
             throw  new IllegalArgumentException("");
         }
+        return result;
     }
 
-//    public void subtract(HugeInteger hugeInteger){
-//        if (isLessThan(hugeInteger)) throw new IllegalArgumentException("greater than the number");
-//
-//        int count = 0;
-//        for (int index = numbers.length - 1; index >= 0; index--) {
-//            int digitOne = numbers[index] - count;
-//            int digitTwo = hugeInteger.numbers[index];
-//
-//            if (digitOne < digitTwo) {
-//                digitOne += 10;
-//                count = 1;
-//            } else count = 0;
-//
-//            numbers[index] = digitOne - digitTwo;
-//        }
-//    }
+    public HugeInteger  subtract(HugeInteger integer) {
+        int borrow = 0;
+        HugeInteger result = new HugeInteger();
 
+        for (int i = numbers.length-1; i >=0; i--) {
+            int difference = numbers[i] - integer.numbers[i]-borrow;
+            if(difference < 0){
+                difference += 10;
+                borrow  = 1;
+            }else{
+                borrow = 0;
+            }
+            result.numbers[i] = difference;
+        }
+        return  result;
+    }
 }
