@@ -73,4 +73,36 @@ class ValidatorTest {
         String password = "passwordpassword@1";
         assertFalse(Validator.passwordValidator(password));
     }
+
+    @Test
+    public void testThatPasswordIsInvalidIfHasSpaceCharacters(){
+        String password = "Java Code@1";
+        assertFalse(Validator.passwordValidator(password));
+    }
+
+
+    @Test
+    public void testThatPasswordIsInvalidIfHasSpaceCharacters0(){
+        String password = "welcome 123$";
+        assertFalse(Validator.passwordValidator(password));
+    }
+
+
+    @Test
+    public void testThatVerifiesMatricNoIsInvalid(){
+        String matricNo = "123456789";
+        assertFalse(Validator.verifyMatricNo(matricNo));
+    }
+
+    @Test
+    public void testThatVerifiesMatricNoIsvalid(){
+        String matricNo = "PHY/18/8222";
+        assertTrue(Validator.verifyMatricNo(matricNo));
+    }
+
+    @Test
+    public void testThatVerifiesMatricNoInvalid(){
+        String matricNo = "PHY-18-8222";
+        assertFalse(Validator.verifyMatricNo(matricNo));
+    }
 }

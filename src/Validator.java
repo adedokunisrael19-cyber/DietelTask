@@ -22,6 +22,11 @@ public class Validator {
 
         System.out.println(Validator.isEmailValid(email));
     }
+
+    public static boolean verifyMatricNo(String matricNo){
+        String  regex = "^PHY/\\d{2}/\\d{4}$";
+        return matricNo.matches(regex);
+    }
 }
 
 
